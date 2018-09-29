@@ -8,7 +8,6 @@ from base.models import Significance
 
 class Who (Significance):
     name = CharField(max_length=255)
-    memberOf = ManyToManyField('MemberOf')
 
 
 class Person (Who):
@@ -21,7 +20,7 @@ class Group (Who):
 
 
 class MemberOf(Significance):
-    member = ForeignKey(Who)
-    of = ForeignKey(Group)
+    member = ForeignKey(Who, on_delete=models.CASCADE, related_name='memberMemberOf')
+    of = ForeignKey(Group, on_delete=models.CASCADE, related_name='ofMemberOf')
     fromDate = DateField()
     toDate = DateField()
